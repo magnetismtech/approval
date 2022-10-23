@@ -12,8 +12,8 @@ trait MustBeApproved
     public function approvalBodies($model, $collections)
     {
 
-        $approval = Approval::with('approvableBodies')->where('model', $model)->first();
-        $approvalBodies = $approval->approvableBodies;
+        $approval = Approval::with('approvalBodies')->where('model', $model)->first();
+        $approvalBodies = $approval->approvalBodies;
 
         $newCollections = $collections->map(function($item)use($approvalBodies){
             if($approvalBodies->count() == $item->approveds->count()){
