@@ -16,7 +16,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Magnetism\\Approval\\ApprovalServiceProvider", //your package and provider
+                "Magnetism\\Approval\\ApprovalServiceProvider"
             ]
         }
     }
