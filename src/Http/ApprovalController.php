@@ -3,12 +3,30 @@
 namespace Magnetism\Approval\Http;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Magnetism\Approval\Models\Approval;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Magnetism\Approval\Models\Approved;
 
 class ApprovalController extends Controller {
+
+    public function approvableSubjects(){
+
+        try {
+            $approvables['subjects']   = config('approvalConfig');
+            $approvables['users']      = User::all();
+
+            return response()->json([
+                'value' => $approvables,
+                'message' => 'Approvables retrieved successfully.'
+            ], 200);
+        }
+        catch (\Exception $e)
+        {
+            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+        }
+    }
 
     public function index()
     {
@@ -114,6 +132,5 @@ class ApprovalController extends Controller {
             return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
         }
     }
-
 
 }

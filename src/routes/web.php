@@ -16,3 +16,4 @@ use Magnetism\Approval\Http\ApprovalController;
 
 Route::resource('/approvables', ApprovalController::class);
 Route::post('/approved', [ApprovalController::class, 'approved']);
+Route::get('/approvableSubjects', [ApprovalController::class, 'approvableSubjects']);

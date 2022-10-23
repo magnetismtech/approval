@@ -14,6 +14,8 @@ class ApprovalServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->make('Magnetism\Approval\Http\ApprovalController');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'approvalConfig');
+
     }
 
     /**
@@ -32,6 +34,11 @@ class ApprovalServiceProvider extends ServiceProvider
                     // you can add any number of migrations here
                 ], 'migrations');
 
+                $this->publishes([
+                    __DIR__.'/../config/config.php' => config_path('approvalConfig.php'),
+                ], 'config');
+
         }
+        //
     }
 }
