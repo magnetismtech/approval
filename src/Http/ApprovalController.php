@@ -99,16 +99,16 @@ class ApprovalController extends Controller {
 
     public function approved(Request $request)
     {
-        $approvedData = [];
-        $approvedData['approver_id']              = auth()->id();
-        $approvedData['is_approved']              = $request->is_approved;
-        $approvedData['remarks']                  = $request->remarks;
-        $approvedData['approver_composite_key']   = $request->approver_composite_key;
-        $approvedData['approvable_type']          = base64_decode($request->subject_type);
-        $approvedData['approvable_id']            = $request->subject_id;
-
         try {
-            Approved::create($request->all());
+            $approvedData = [];
+            $approvedData['approver_id']              = auth()->id();
+            $approvedData['is_approved']              = $request->is_approved;
+            $approvedData['remarks']                  = $request->remarks;
+            $approvedData['approver_composite_key']   = $request->approver_composite_key;
+            $approvedData['approvable_type']          = base64_decode($request->subject_type);
+            $approvedData['approvable_id']            = $request->subject_id;
+
+            Approved::create($approvedData);
             return response()->json([
                 'value' => '',
                 'message' => 'Approved successfully.'
