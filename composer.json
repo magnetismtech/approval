@@ -1,0 +1,16 @@
+{
+    "name": "magnetism/approval",
+    "description": "Multi User / Multi Order By approval Management.",
+    "autoload": {
+        "psr-4": {
+            "Magnetism\\Approval\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Magnetism Tech Ltd."
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
