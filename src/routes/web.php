@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Magnetism\Approval\Http\ApprovableController;
+//use Magnetism\Approval\Http\ApprovableController;
 
 /*
 |--------------------------------------------------------------------------
