@@ -9,7 +9,7 @@ use Magnetism\Approval\Models\ApprovalBody;
 
 trait MustBeApproved
 {
-    public function approvalBodies($model, $collections)
+    public function approvalProcess($model, $collections)
     {
 
         $approval = Approval::with('approvalBodies')->where('model', $model)->first();
