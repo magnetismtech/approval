@@ -13,7 +13,7 @@ class ApprovalServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Magnetism\Approval\Http\ApprovableController');
+        $this->app->make('Magnetism\Approval\Http\ApprovalController');
     }
 
     /**

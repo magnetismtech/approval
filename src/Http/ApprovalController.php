@@ -3,17 +3,17 @@
 namespace Magnetism\Approval\Http;
 
 use App\Http\Controllers\Controller;
-use Magnetism\Approval\Models\Approvable;
+use Magnetism\Approval\Models\Approval;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Magnetism\Approval\Models\Approved;
 
-class ApprovableController extends Controller {
+class ApprovalController extends Controller {
 
     public function index()
     {
         try {
-            $approvables = Approvable::with('approvableBodies')->latest()->get();
+            $approvables = Approval::with('approvalBodies')->latest()->get();
 
             return response()->json([
                 'value' => $approvables,
@@ -31,12 +31,12 @@ class ApprovableController extends Controller {
     {
         try{
             DB::transaction(function () use ($request, &$approvable){
-                $approvable = Approvable::create(['model' => $request->model]);
-                $approvable->approvableBodies()->createMany($request->approvalBodies);
+                $approvable = Approval::create(['model' => $request->model]);
+                $approvable->approvalBodies()->createMany($request->approvalBodies);
             });
             return response()->json([
                 'value' => $approvable,
-                'message' => 'Approvable added successfully.'
+                'message' => 'Approval added successfully.'
             ], 201);
         }
         catch (\Exception $e)
@@ -48,10 +48,10 @@ class ApprovableController extends Controller {
     public function show($id)
     {
         try {
-            $approvable = Approvable::with('approvableBodies')->find($id);
+            $approvable = Approval::with('approvalBodies')->find($id);
             return response()->json([
                 'value' => $approvable,
-                'message' => 'Approvable retrieved successfully.'
+                'message' => 'Approval retrieved successfully.'
             ], 200);
         } catch (\Exception $e)
         {
@@ -64,15 +64,15 @@ class ApprovableController extends Controller {
     {
         try{
             DB::transaction(function () use ($id, $request, &$approvable){
-                $approvable = Approvable::with('approvableBodies')->find($id);
+                $approvable = Approval::with('approvalBodies')->find($id);
                 $approvable->update(['model' => $request->model]);
-                $approvable->approvableBodies()->delete();
-                $approvable->approvableBodies()->createMany($request->approvalBodies);
+                $approvable->approvalBodies()->delete();
+                $approvable->approvalBodies()->createMany($request->approvalBodies);
             });
 
             return response()->json([
                 'value' => $approvable,
-                'message' => 'Approvable updated successfully.'
+                'message' => 'Approval updated successfully.'
             ], 201);
         }
         catch (\Exception $e)
@@ -85,10 +85,10 @@ class ApprovableController extends Controller {
     public function destroy($id)
     {
         try {
-            Approvable::find($id)->delete();
+            Approval::find($id)->delete();
             return response()->json([
                 'value' => '',
-                'message' => 'Approvable deleted successfully.'
+                'message' => 'Approval deleted successfully.'
             ], 204);
         }
         catch (\Exception $e)

@@ -9,4 +9,9 @@ class Approved extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function approvable()
+    {
+        return $this->morphTo();
+    }
 }

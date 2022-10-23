@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use Magnetism\Approval\Http\ApprovableController;
+//use Magnetism\Approval\Http\ApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Magnetism\Approval\Http'], function(){
 
-    Route::resource('/approvables', ApprovableController::class);
-    Route::post('/approved', [ApprovableController::class, 'approved']);
+    Route::resource('/approvables', ApprovalController::class);
+    Route::post('/approved', [ApprovalController::class, 'approved']);
 
 });

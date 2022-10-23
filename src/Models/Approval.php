@@ -5,15 +5,15 @@ namespace Magnetism\Approval\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Approvable extends Model
+class Approval extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function approvableBodies()
+    public function approvalBodies()
     {
-        return $this->hasMany(ApprovableBody::class);
+        return $this->hasMany(ApprovalBody::class);
     }
 
 }

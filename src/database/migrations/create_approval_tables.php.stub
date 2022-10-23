@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('approvables', function (Blueprint $table) {
+        Schema::create('approvals', function (Blueprint $table) {
             $table->id();
             $table->string('model')->unique()->comment('which model want to be approved.');
             $table->timestamps();
         });
 
-        Schema::create('approvable_bodies', function (Blueprint $table) {
+        Schema::create('approval_bodies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('approvable_id')->constrained('approvables', 'id')->cascadeOnDelete();
+            $table->foreignId('approval_id')->constrained('approvals', 'id')->cascadeOnDelete();
             $table->unsignedInteger('approver_id');
             $table->unsignedInteger('approval_order');
             $table->string('approver_composite_key')->unique()->comment('combination of approvable_id+approver_id+approval_order');
