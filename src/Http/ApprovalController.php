@@ -14,7 +14,7 @@ class ApprovalController extends Controller {
     public function approvableSubjects(){
 
         try {
-            $approvables['subjects']   = config('approvalConfig');
+            $approvables               = config('approvalConfig');
             $approvables['users']      = User::all();
 
             return response()->json([
