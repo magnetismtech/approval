@@ -31,7 +31,7 @@ class ApprovalController extends Controller {
     public function index()
     {
         try {
-            $approvables = Approval::with('approvalBodies')->latest()->get();
+            $approvables = Approval::with('approvalBodies.approver')->latest()->get();
 
             return response()->json([
                 'value' => $approvables,

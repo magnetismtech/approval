@@ -2,6 +2,7 @@
 
 namespace Magnetism\Approval\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,5 +16,10 @@ class ApprovalBody extends Model
         static::creating(function ($approvalBody) {
             $approvalBody['approver_composite_key'] = "M$approvalBody->approval_id"."_A$approvalBody->approver_id"."_O$approvalBody->approval_order";
         });
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class,'approver_id');
     }
 }
