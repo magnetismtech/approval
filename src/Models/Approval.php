@@ -13,7 +13,7 @@ class Approval extends Model
 
     public function approvalBodies()
     {
-        return $this->hasMany(ApprovalBody::class);
+        return $this->hasMany(ApprovalBody::class)->orderBy('approval_order', 'ASC');
     }
 
 }
