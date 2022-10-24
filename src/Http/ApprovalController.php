@@ -50,7 +50,7 @@ class ApprovalController extends Controller {
         try{
             DB::transaction(function () use ($request, &$approvable){
                 $approvable = Approval::create(['model' => $request->model]);
-                $approvable->approvalBodies()->createMany($request->approvalBodies);
+                $approvable->approvalBodies()->createMany($request->approval_bodies);
             });
             return response()->json([
                 'value' => $approvable,
@@ -85,7 +85,7 @@ class ApprovalController extends Controller {
                 $approvable = Approval::with('approvalBodies')->find($id);
                 $approvable->update(['model' => $request->model]);
                 $approvable->approvalBodies()->delete();
-                $approvable->approvalBodies()->createMany($request->approvalBodies);
+                $approvable->approvalBodies()->createMany($request->approval_bodies);
             });
 
             return response()->json([
