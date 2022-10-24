@@ -66,7 +66,7 @@ class ApprovalController extends Controller {
     public function show($id)
     {
         try {
-            $approvable = Approval::with('approvalBodies')->find($id);
+            $approvable = Approval::with('approvalBodies.approver')->find($id);
             return response()->json([
                 'value' => $approvable,
                 'message' => 'Approval retrieved successfully.'
