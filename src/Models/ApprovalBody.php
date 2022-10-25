@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApprovalBody extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['approval_id','approver_id','approval_order','approver_role', 'approver_composite_key'];
 
     protected static function booted()
     {

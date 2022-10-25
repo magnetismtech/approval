@@ -16,6 +16,7 @@ class ApprovalController extends Controller {
         try {
             $approvables               = config('approvalConfig');
             $approvables['users']      = User::all();
+            $approvables['roles']      = ['Checker', 'Authorizer', 'Approver'];
 
             return response()->json([
                 'value' => $approvables,
