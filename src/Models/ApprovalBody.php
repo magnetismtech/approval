@@ -14,7 +14,7 @@ class ApprovalBody extends Model
     protected static function booted()
     {
         static::creating(function ($approvalBody) {
-            $approvalBody['approver_composite_key'] = "M$approvalBody->approval_id"."_A$approvalBody->approver_id"."_O$approvalBody->approval_order";
+            $approvalBody['approver_composite_key'] = "M$approvalBody->approval_id"."_O$approvalBody->approval_order";
         });
     }
 

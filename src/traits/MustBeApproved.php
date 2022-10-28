@@ -12,20 +12,20 @@ trait MustBeApproved
     public function approvalProcess($model, $collections)
     {
 
-        $approval = Approval::with('approvalBodies')->where('model', $model)->first();
-        $approvalBodies = $approval->approvalBodies;
+        $approval = Approval::with('approvalBodies.approver')->where('model', $model)->first();
+        $approvalOrders = $approval->approvalBodies->pluck('approver_composite_key', 'approver_composite_key'); // pluck->composite(); 
 
-        $newCollections = $collections->map(function($item)use($approvalBodies){
-            if($approvalBodies->count() == $item->approveds->count()){
+        $newCollections = $collections->map(function($item)use($approval, $approvalOrders){
+            if($approvalOrders->count() == $item->approveds->count()){
                 $item['approved_status'] = "Approved";
             }else{
-                $approveds                      = $item->approveds->pluck('approver_composite_key');
-                $upcomingApprovers              = $approvalBodies->diff(ApprovalBody::whereIn('approver_composite_key', [count($approveds) > 0 ? $approveds : null])->get());
-                $currentApprover                = User::find($upcomingApprovers->first()->approver_id);
-                $item['approved_status']        = "Pending";
-                $item['current_approver']       = $currentApprover->name;
-                $item['get_approve_button']     = auth()->id() == $currentApprover->id ? True : False;
-                $item['approver_composite_key'] = $upcomingApprovers->first()->approver_composite_key;
+                $approveds                      =  $item->approveds->pluck('approver_composite_key');
+                $incompleteSteps                =  $approvalOrders->diff($approveds);
+                $currentApprovers               =  $approval->approvalBodies->where('approver_composite_key', $incompleteSteps->first()); 
+                $item['approved_status']        =  "Pending";
+                $item['current_approver']       =  $currentApprovers->pluck('approver')->pluck('name')->join(' / '); 
+                $item['get_approve_button']     =  $currentApprovers->contains('approver_id', auth()->id()) ? True : False;
+                $item['approver_composite_key'] =  $currentApprovers->first()->approver_composite_key;
             }
 
             return $item;
